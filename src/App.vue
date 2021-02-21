@@ -13,12 +13,14 @@
             <li><router-link to="/admin">Users</router-link></li>
             <li><router-link to="/admin">Teams</router-link></li>
             <li><router-link to="/admin">Challenges</router-link></li>
-            <li><router-link to="/admin">Configuration</router-link></li>
+            <li><router-link to="/admin">Files</router-link></li>
+            <li><router-link to="/admin/pages">Pages</router-link></li>
+            <li><router-link to="/admin">Options</router-link></li>
           </ul>
         </li>
           <div class="topnav-right">
               <li><router-link to="/profile">Profile</router-link></li>
-              <li><router-link to="/login">Login</router-link></li>
+              <li><router-link to="/login">Logout</router-link></li>
           </div>
       </ul>
     </nav>

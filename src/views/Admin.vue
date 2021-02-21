@@ -1,6 +1,6 @@
 <template>
     <div class="admin">
-        <h1>This is an admin page</h1>
+        <router-view></router-view>
     </div>
 </template>
 
