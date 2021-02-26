@@ -9,7 +9,20 @@ export async function getPage(path) {
 export function createPage(params) {
     console.log("Posting");
     var xhr = new XMLHttpRequest();
-    xhr.open("POST",apiURL,true);
+    xhr.open("POST",apiURL,false);
     xhr.setRequestHeader("Content-type",'application/json; charset=UTF-8');
     xhr.send(JSON.stringify(params))
+}
+
+export function updatePage(data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT",apiURL+"/"+data.path,false);
+    xhr.setRequestHeader('Content-type','application/json; charset=UTF-8');
+    xhr.send(JSON.stringify(data));
+}
+
+export function deletePage(path) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", apiURL+path,false);
+    xhr.send();
 }

@@ -1,18 +1,15 @@
 <template>
   <div class="home">
-    <PageEditor/>
+    <MarkdownRenderer path="home"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-//import Content from "@/components/Content";
-import PageEditor from "@/components/PageEditor";
-
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 export default {
   name: 'Home',
   components: {
-    PageEditor,
+    MarkdownRenderer
   }
 }
 </script>

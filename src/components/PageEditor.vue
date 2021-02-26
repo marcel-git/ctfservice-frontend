@@ -4,7 +4,10 @@
             <MarkdownEditor v-model="markdown" :theme="theme"/>
         </div>
         <div id="submit">
-            <a href="#" class="myButton" v-on:click="sendPage">Create</a>
+            <a href="" class="myButton">Back</a>
+            <a v-if="type=='create'" href="#" class="myButton" v-on:click="sendPage">Create</a>
+            <a v-else-if="type=='update'" href="#" class="myButton" v-on:click="updatePage">Update</a>
+            <p v-else><strong>Wrong mode: {{type}}! (create|update)</strong></p>
         </div>
         <div id="path">
             Path:
@@ -15,10 +18,14 @@
 
 <script>
     import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
-    import {createPage} from "@/scripts/contentLoader";
+    import {createPage, getPage, updatePage} from "@/scripts/contentLoader";
 
     export default {
         name: "PageEditor",
+        props: {
+           mode: String,
+           page: String
+        },
         components: {
             MarkdownEditor
         },
@@ -26,33 +33,53 @@
             return {
                 markdown: '**Create a page using markdown**',
                 theme: 'dark',
-                path: ""
+                path: this.page,
+                type: this.mode
             }
+        },
+        created: async function () {
+          if(this.mode == 'update'){
+              var temp = await getPage("/"+this.path);
+              if(!temp){
+                  console.log("Page not found!")
+              }else{
+                  this.markdown = temp.content;
+                  this.path = temp.path;
+              }
+          }
         },
         methods: {
             sendPage: function() {
-                createPage({"path": this.path,"content":this.markdown})
+                createPage({"path": this.path,"content":this.markdown});
+                this.$router.go(0)
+            },
+            updatePage: function () {
+                updatePage({"path": this.path,"content":this.markdown});
+                this.$router.go(0)
             }
         }
     }
 </script>
 
 <style scoped>
+
+    .PageEditor {
+        padding-bottom: 0.75%;
+    }
+
     #editor {
         background: #2F343D;
         border-radius: 20px;
-        margin-top: 5%;
-        margin-left: 10%;
-        margin-right: 10%;
+        margin: 5% 15% 1% 15%;
         text-align: left;
         padding: 1% 1% 0% 1%;
     }
 
     #path {
         float: left;
-        padding-left: 10%;
+        padding-left: 15%;
         padding-top: 1%;
-        padding-bottom: 1%;
+        padding-bottom: 0%;
     }
 
     .css-input {
@@ -80,6 +107,7 @@
         font-size:17px;
         padding:16px 31px;
         text-decoration:none;
+        margin-left: 20px;
     }
     .myButton:hover {
         background-color:#F0FFFFFF;
@@ -92,9 +120,10 @@
 
     #submit {
         float: right;
-        padding-right: 10%;
+        padding-right: 15%;
         padding-top: 1%;
-        padding-bottom: 1%;
+        padding-bottom: 5px;
+
     }
 
 </style>

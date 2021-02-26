@@ -6,6 +6,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/home',
+    redirect: '/'
+  } ,
+  {
     path: '/',
     name: 'Home',
     component: Home
@@ -26,6 +30,18 @@ const routes = [
       {
         path: 'pages',
         component: () => import ('../components/Pages'),
+        children: [
+          {
+            path: 'edit',
+            component: () => import('../components/PageEditor'),
+            props: {mode: 'update'}
+          },
+          {
+            path: 'create',
+            component: () => import('../components/PageEditor'),
+            props: {mode: 'create'}
+          }
+        ]
       }
     ]
   },
