@@ -69,6 +69,10 @@
 
 <style scoped>
 
+    h1 {
+        text-align: center;
+    }
+
     svg {
         padding-left: 10%;
     }
@@ -80,6 +84,7 @@
     .Title {grid-area: Title;}
     .URL {
         grid-area: URL;
+        padding-left: 5%;
         border-left: 1px solid azure;
         border-right: 1px solid azure;
     }

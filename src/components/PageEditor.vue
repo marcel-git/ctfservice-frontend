@@ -1,29 +1,37 @@
 <template>
-    <div class="markdownComponent">
+    <div class="PageEditor">
         <div id="editor">
             <MarkdownEditor v-model="markdown" :theme="theme"/>
         </div>
         <div id="submit">
-            <a href="#" class="myButton">Create</a>
+            <a href="#" class="myButton" v-on:click="sendPage">Create</a>
         </div>
         <div id="path">
             Path:
-            <input type="text" class="css-input" value="/" />
+            <input v-model="path" type="text" class="css-input" placeholder="/" />
         </div>
     </div>
 </template>
 
 <script>
     import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
+    import {createPage} from "@/scripts/contentLoader";
+
     export default {
-        name: "MarkdownComponent",
+        name: "PageEditor",
         components: {
             MarkdownEditor
         },
         data() {
             return {
                 markdown: '**Create a page using markdown**',
-                theme: 'dark'
+                theme: 'dark',
+                path: ""
+            }
+        },
+        methods: {
+            sendPage: function() {
+                createPage({"path": this.path,"content":this.markdown})
             }
         }
     }

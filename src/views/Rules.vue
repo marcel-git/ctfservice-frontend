@@ -1,15 +1,20 @@
 <template>
     <div class="rules">
-        <h1>This is a rules page</h1>
+        <MarkdownRenderer path="rules"/>
     </div>
 </template>
 
 <script>
+    import MarkdownRenderer from "../components/MarkdownRenderer"
+
     export default {
-        name: "Admin.vue"
+        name: "Rules",
+        components: {
+            MarkdownRenderer
+        }
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

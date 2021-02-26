@@ -1,15 +1,20 @@
 <template>
     <div class="faq">
-        <h1>This is a faq page</h1>
+        <MarkdownRenderer path="faq"/>
     </div>
 </template>
 
 <script>
+    import MarkdownRenderer from "../components/MarkdownRenderer"
+
     export default {
-        name: "FAQ"
+        name: "FAQ",
+        components: {
+            MarkdownRenderer
+        }
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

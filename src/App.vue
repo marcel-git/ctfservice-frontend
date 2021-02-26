@@ -1,9 +1,8 @@
 <template>
   <div id="app">
     <nav id='menu'>
-      <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
       <ul>
-        <li><router-link to="/"><img src="/assets/logo.png" width="50" height="50" alt="Home"></router-link></li>
+        <li><router-link to="/"><img src="assets/logo.png" width="50" height="50" alt="Home"></router-link></li>
         <li><router-link to="/rules">Rules</router-link></li>
         <li><router-link to="/faq">FAQ</router-link></li>
         <li><router-link to="/scoreboard">Scoreboard</router-link></li>
@@ -43,19 +42,15 @@
 
 <style>
 
-body { background-color: #373d48}
+body {
+  background: #373d48;
+  color: azure;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
 
 .topnav-right {
     float: right;
     padding-right: 1%;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: azure;
 }
 
 #menu {
