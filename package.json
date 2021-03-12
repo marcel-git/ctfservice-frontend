@@ -9,15 +9,18 @@
   },
   "dependencies": {
     "@voraciousdev/vue-markdown-editor": "^0.3.0",
+    "axios": "^0.21.1",
     "babel-runtime": "^6.26.0",
     "core-js": "^3.6.5",
     "github-markdown-css": "^4.0.0",
     "highlight.js": "^10.6.0",
     "prismjs": "^1.23.0",
     "showdown-highlight": "^2.1.6",
+    "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vue-showdown": "^2.4.1"
+    "vue-showdown": "^2.4.1",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

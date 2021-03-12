@@ -2,12 +2,13 @@
   <div id="app">
     <nav id='menu'>
       <ul>
-        <li><router-link to="/"><img src="assets/logo.png" width="50" height="50" alt="Home"></router-link></li>
+        <!-- insert icon-->
+        <li><router-link to="/"><img alt="Home"></router-link></li>
         <li><router-link to="/rules">Rules</router-link></li>
         <li><router-link to="/faq">FAQ</router-link></li>
         <li><router-link to="/scoreboard">Scoreboard</router-link></li>
         <li><router-link to="/challenges">Challenges</router-link></li>
-        <li><a class='dropdown-arrow'>Admin</a>
+        <li v-if="showAdmin"><a class='dropdown-arrow'>Admin</a>
           <ul class='sub-menus'>
             <li><router-link to="/admin">Users</router-link></li>
             <li><router-link to="/admin">Teams</router-link></li>
@@ -18,8 +19,10 @@
           </ul>
         </li>
           <div class="topnav-right">
-              <li><router-link to="/profile">Profile</router-link></li>
-              <li><router-link to="/login">Logout</router-link></li>
+              <li v-if="!loggedIn"><router-link to="/register">Register</router-link></li>
+              <li v-if="loggedIn"><router-link to="/profile">Profile</router-link></li>
+              <li v-if="loggedIn" v-on:click="logout"><a>Logout</a></li>
+              <li v-else ><router-link to="/login">Login</router-link></li>
           </div>
       </ul>
     </nav>
@@ -35,6 +38,30 @@
       document.getElementById('menu').style.borderBottomLeftRadius = '0';
     }else{
       document.getElementById('menu').style.borderRadius = '20px';
+    }
+  }
+
+  export default {
+    computed: {
+      loggedIn() {
+        return this.$store.state.auth.status.loggedIn;
+      },
+      currentUser(){
+        return this.$store.state.auth.user;
+      },
+      showAdmin() {
+        if(this.currentUser)
+        {
+          return this.currentUser.admin;
+        }
+        return false;
+      }
+    },
+    methods:  {
+      logout() {
+        this.$store.dispatch('auth/logout');
+        this.$router.push('/login');
+      }
     }
   }
 

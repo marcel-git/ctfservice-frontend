@@ -2,18 +2,53 @@
     <div class="login">
       <img src="../assets/icon.png" width="10%"/>
       <br>
-      <input type="text" class="css-input" placeholder="Username"/>
+      <input v-model="user.username" type="text" class="css-input" placeholder="Username"/>
       <br>
-      <input type="password" class="css-input" placeholder="Password"/>
+      <input v-model="user.password" type="password" class="css-input" placeholder="Password"/>
       <div id="submit">
-        <a href="#" class="myButton">Login</a>
+        <a href="#" class="myButton" v-on:click="handleLogin">Login</a>
       </div>
     </div>
 </template>
 
 <script>
+import User from '../model/User'
+
     export default {
-        name: "Admin.vue"
+        name: "Login",
+      data() {
+          return {
+            user: new User('','')
+          }
+      },
+      computed: {
+          loggedIn(){
+            return this.$store.state.auth.status.loggedIn;
+          }
+      },
+      created() {
+          if(this.loggedIn) {
+            this.$router.push('/profile')
+          }
+      },
+      methods: {
+        handleLogin() {
+
+            if (this.user.username && this.user.password) {
+              this.$store.dispatch('auth/login', this.user).then(
+                  () => {
+                    this.$router.push('/profile');
+                  },
+                  error => {
+                    this.message =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+                  }
+              );
+            }
+        }
+      }
     }
 </script>
 
@@ -25,6 +60,7 @@
 
     img {
         padding-top: 2%;
+
     }
 
     .css-input {
