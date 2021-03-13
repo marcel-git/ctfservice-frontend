@@ -32,16 +32,17 @@ const routes = [
         component: () => import ('../components/Pages'),
         children: [
           {
-            path: 'edit',
-            component: () => import('../components/PageEditor'),
-            props: {mode: 'update'}
-          },
-          {
             path: 'create',
             component: () => import('../components/PageEditor'),
             props: {mode: 'create'}
-          }
+          },
+
         ]
+      },
+      {
+        path: 'users',
+        component: () => import('../components/Table'),
+        props: {type: 'user'}
       }
     ]
   },

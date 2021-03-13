@@ -10,7 +10,7 @@
         <li><router-link to="/challenges">Challenges</router-link></li>
         <li v-if="showAdmin"><a class='dropdown-arrow'>Admin</a>
           <ul class='sub-menus'>
-            <li><router-link to="/admin">Users</router-link></li>
+            <li><router-link to="/admin/users">Users</router-link></li>
             <li><router-link to="/admin">Teams</router-link></li>
             <li><router-link to="/admin">Challenges</router-link></li>
             <li><router-link to="/admin">Files</router-link></li>

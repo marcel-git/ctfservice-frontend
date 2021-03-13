@@ -38,6 +38,7 @@
             }
         },
         created: async function () {
+            console.log("I am being used");
           if(this.mode == 'update'){
               var temp = await getPage("/"+this.path);
               if(!temp){
