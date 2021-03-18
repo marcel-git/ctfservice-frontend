@@ -1,7 +1,9 @@
 <template>
     <div class="challenges">
         <div v-if="loggedIn">
-            <h1>This is a challenges page</h1>
+            <div v-for="challenge in challenges" :key="challenge.id">
+                <Challenge :challenge="{id: challenge.id, name: challenge.name, text: challenge.text, points: challenge.points }"/>
+            </div>
         </div>
         <div v-else>
             <h1><strong>You must be logged in to view this page!</strong></h1>
@@ -11,12 +13,25 @@
 </template>
 
 <script>
+    import {getChallenges} from "@/scripts/challenge.service";
+    import Challenge from "@/components/Challenge"
+
     export default {
         name: "Admin.vue",
+        components: {Challenge},
+        data() {
+          return {
+              challenges: []
+          }
+        },
         computed: {
             loggedIn() {
                 return this.$store.state.auth.status.loggedIn;
             }
+        },
+        created: async function(){
+            var temp = await getChallenges();
+            this.challenges = temp;
         }
     }
 </script>
