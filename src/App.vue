@@ -12,7 +12,7 @@
           <ul class='sub-menus'>
             <li><router-link to="/admin/users">Users</router-link></li>
             <li><router-link to="/admin">Teams</router-link></li>
-            <li><router-link to="/admin">Challenges</router-link></li>
+            <li><router-link to="/admin/challenges">Challenges</router-link></li>
             <li><router-link to="/admin">Files</router-link></li>
             <li><router-link to="/admin/pages">Pages</router-link></li>
             <li><router-link to="/admin">Options</router-link></li>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
   // eslint-disable-next-line no-unused-vars
   function updatemenu() {
     if (document.getElementById('responsive-menu').checked == true) {

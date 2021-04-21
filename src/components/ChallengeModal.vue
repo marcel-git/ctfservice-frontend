@@ -1,6 +1,6 @@
 <template>
     <div class="Challenge" v-on:click="closeModal">
-        <div id="myBtn" class="flip-card" v-on:click="showModal">
+        <div id="myBtn" class="flip-card" v-on:click="showModal(challenge.name)">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
                     {{challenge.name}}
@@ -10,14 +10,13 @@
                 </div>
             </div>
         </div>
-        <!--TODO fix that only the modal of the first challenge is showing up, regardless of what challenge was clicked -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
+        <div :id="challenge.name" class="modal">
+            <div class="modal-content" id="content">
                 <h1>{{challenge.name}}</h1>
                 <p>{{challenge.text}}</p>
               <br>
-              <input type="text" class="css-input" placeholder="Flag" />
-              <a href="#" class="myButton" >Submit</a>
+              <input v-model="flag" type="text" class="css-input" placeholder="Flag" />
+              <a href="#" class="myButton" v-on:click="verifyAnswer">Submit</a><br>
             </div>
         </div>
 
@@ -26,28 +25,68 @@
 
 <script>
     import Challenge from "@/model/Challenge";
+    import {verify} from "@/scripts/challenge.service";
+
+    // Get all elements with class="closebtn"
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+
+    // Loop through all close buttons
+    for (i = 0; i < close.length; i++) {
+        // When someone clicks on a close button
+        close[i].onclick = function(){
+
+            // Get the parent of <span class="closebtn"> (<div class="alert">)
+            var div = this.parentElement;
+
+            // Set the opacity of div to 0 (transparent)
+            div.style.opacity = "0";
+
+            // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+        }
+    }
 
     export default {
         name: "Challenge",
         props: {
-            challenge: new Challenge('','','','')
+            challenge: new Challenge('','','',''),
+        },
+        data() {
+            return {
+                flag: "",
+                result: ""
+            }
         },
         methods: {
-          showModal: function(){
-            var modal = document.getElementById("myModal")
+          showModal: function(name){
+            var modal = document.getElementById(name);
             modal.style.display = "block"
           },
           closeModal: function (event){
-            var modal = document.getElementById("myModal")
+            var modal = document.getElementById(this.challenge.name);
             if(event.target.id == modal.id){
               modal.style.display = "none"
             }
+          },
+          verifyAnswer: async function () {
+              const result =  await verify({challengeID: this.challenge.id, solution: this.flag});
+              this.result = result;
           }
         }
     }
 </script>
 
 <style scoped>
+
+    .alert {
+        opacity: 1;
+        transition: opacity 0.6s; /* 600ms to fade out */
+        background-color: green;
+        text-align: center;
+        height: 50px;
+
+    }
 
     .flip-card {
         background-color: transparent;
@@ -56,6 +95,7 @@
         /*border: 1px solid #f1f1f1;*/
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
         float: left;
+
         margin-left: 1%;
         margin-top: 1%;
     }
@@ -91,14 +131,14 @@
 
     /* Style the front side (fallback if image is missing) */
     .flip-card-front {
-        background-color: #2F343D;
-        color: #F0FFFF;
+        background-color:  #42b983;
+        color: #2F343D;
     }
 
     /* Style the back side */
     .flip-card-back {
         background-color: #2F343D;
-        color: #F0FFFF;
+        color: #42b983;
         transform: rotateY(180deg);
     }
 

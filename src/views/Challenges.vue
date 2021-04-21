@@ -2,7 +2,7 @@
     <div class="challenges">
         <div v-if="loggedIn">
             <div v-for="challenge in challenges" :key="challenge.id">
-                <Challenge :challenge="{id: challenge.id, name: challenge.name, text: challenge.text, points: challenge.points }"/>
+                <ChallengeModal :challenge="{id: challenge.id, name: challenge.name, text: challenge.text, points: challenge.points }"/>
             </div>
         </div>
         <div v-else>
@@ -14,11 +14,11 @@
 
 <script>
     import {getChallenges} from "@/scripts/challenge.service";
-    import Challenge from "@/components/Challenge"
+    import ChallengeModal from "@/components/ChallengeModal"
 
     export default {
         name: "Admin.vue",
-        components: {Challenge},
+        components: {ChallengeModal},
         data() {
           return {
               challenges: []
@@ -32,6 +32,7 @@
         created: async function(){
             var temp = await getChallenges();
             this.challenges = temp;
+
         }
     }
 </script>
@@ -40,4 +41,9 @@
     h1 {
         text-align: center;
     }
+
+    .challenges{
+        margin: 1% 10% 1% 7%;
+    }
+
 </style>

@@ -4,7 +4,7 @@
             <MarkdownEditor v-model="markdown" :theme="theme"/>
         </div>
         <div id="submit">
-            <a href="" class="myButton">Back</a>
+            <router-link v-if="type=='create'" to="/admin/pages" class="myButton">Back</router-link>
             <a v-if="type=='create'" href="#" class="myButton" v-on:click="sendPage">Create</a>
             <a v-else-if="type=='update'" href="#" class="myButton" v-on:click="updatePage">Update</a>
             <p v-else><strong>Wrong mode: {{type}}! (create|update)</strong></p>
@@ -38,7 +38,6 @@
             }
         },
         created: async function () {
-            console.log("I am being used");
           if(this.mode == 'update'){
               var temp = await getPage("/"+this.path);
               if(!temp){

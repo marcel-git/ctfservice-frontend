@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="create">
-                <a href="#" class="myButton" v-on:click="createPage">Create</a>
+                <router-link class="myButton" to="/admin/createPage">Create</router-link>
             </div>
         </div>
 

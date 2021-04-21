@@ -15,6 +15,7 @@ export function createPage(params) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST",apiURL,false);
     xhr.setRequestHeader("Content-type",'application/json; charset=UTF-8');
+    xhr.setRequestHeader('Authorization', authHeader().Authorization);
     xhr.send(JSON.stringify(params))
 }
 

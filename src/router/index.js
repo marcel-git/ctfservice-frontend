@@ -25,26 +25,32 @@ const routes = [
   {
     path: '/admin',
     name: 'Admin',
-    component: () => import(/* webpackChunkName: "faq" */ '../views/Admin.vue'),
+    component: () => import('../views/Admin.vue'),
     children: [
       {
         path: 'pages',
-        component: () => import ('../components/Pages'),
-        children: [
-          {
-            path: 'create',
-            component: () => import('../components/PageEditor'),
-            props: {mode: 'create'}
-          },
-
-        ]
+        component: () => import ('../components/PagesList'),
+      },
+      {
+        path: 'challenges',
+        component: () => import ('../components/ChallengesList'),
       },
       {
         path: 'users',
         component: () => import('../components/Table'),
         props: {type: 'user'}
+      },
+      {
+        path: 'createPage',
+        component: () => import('../components/PageEditor'),
+        props: {mode: 'create'}
+      },
+      {
+        path: 'createChallenge',
+        component: () => import('../components/ChallengeEditor'),
+        props: {mode: 'create'}
       }
-    ]
+  ]
   },
   {
     path: '/challenges',
